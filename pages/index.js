@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1>Let's study how to build spotify 2.0 with nextjs</h1>
+        <h1>nextJs</h1>
       </main>
     </div>
   );
