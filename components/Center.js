@@ -30,7 +30,6 @@ function Center() {
   const [color, setColor] = useState("to-rose-500")
   const playlistId = useRecoilValue(playlistIdState)
   const [playlist, setPlaylist] = useRecoilState(playlistState)
-  console.log("playlist: ", playlist)
 
   useEffect(() => {
     const newColor = COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)]
@@ -81,7 +80,7 @@ function Center() {
               <span>
                 <SparklesIcon className="w-5 h-5" />
               </span>
-              <span>{playlist.description}</span>.
+              <span>{playlist?.description}</span>.
             </p>
           </div>
         </div>

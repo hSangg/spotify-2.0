@@ -6,11 +6,8 @@ import useSpotify from "../Hooks/useSpotify"
 import useFormatTime from "../Hooks/useFormatTime"
 
 export default function SongSearch({ song, index }) {
-  console.log("song: ", song)
   const spotifyAPI = useSpotify()
-
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
-
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   const playSong = () => {

@@ -37,7 +37,6 @@ const COLOR_LIST = [
 export default function Player() {
   const spotifyAPI = useSpotify()
   const { data: session, status } = useSession()
-  console.log("session: ", session)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useRecoilState(volumeState)
