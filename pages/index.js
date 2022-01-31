@@ -13,7 +13,6 @@ export default function Home() {
       </Head>
 
       <main className="bg-black text-white flex ">
-        {/* <SideBar /> */}
         <Center />
         <div className="fixed bottom-0 left-0 right-0 ">
           <Player />

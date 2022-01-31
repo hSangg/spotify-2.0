@@ -14,6 +14,8 @@ import {
 } from "@heroicons/react/outline"
 
 import { PlayIcon, StopIcon } from "@heroicons/react/solid"
+import { useDebounce } from "use-lodash-debounce"
+import { volumeState } from "../atoms/playerAtom"
 
 const COLOR_LIST = [
   "to-amber-800",
@@ -35,12 +37,14 @@ const COLOR_LIST = [
 export default function Player() {
   const spotifyAPI = useSpotify()
   const { data: session, status } = useSession()
+  console.log("session: ", session)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
-  const [volume, setVolume] = useState(50)
+  const [volume, setVolume] = useRecoilState(volumeState)
   const [color, setColor] = useState("to-rose-500")
 
   const songInfor = useSongInfor()
+  const volumeDebounce = useDebounce(volume, 200)
 
   const fetchCurrentSong = () => {
     if (!songInfor) {
@@ -80,13 +84,15 @@ export default function Player() {
   }
 
   useEffect(() => {
-    setVolumeDebounce(volume)
-  }, [volume])
+    setVolumeDebounce(volumeDebounce)
+  }, [volumeDebounce])
 
   const setVolumeDebounce = useCallback(() => {
-    spotifyAPI.setVolume(volume).catch((error) => {
-      throw new Error(error)
-    })
+    if (session.user.accessToken) {
+      spotifyAPI.setVolume(volume).catch((error) => {
+        throw new Error(error)
+      })
+    }
   }, [volume])
 
   return (
@@ -103,9 +109,9 @@ export default function Player() {
           <div>
             {songInfor?.artists?.map((artist, i) => {
               if (i === songInfor?.artists.length - 1) {
-                return <span>{artist.name}</span>
+                return <span key={i}>{artist.name}</span>
               }
-              return <span>{artist.name} x </span>
+              return <span key={i}>{artist.name} x </span>
             })}
           </div>
         </div>
@@ -129,7 +135,7 @@ export default function Player() {
           max={100}
           onChange={(e) => setVolume(Number(e.target.value))}
           type="range"
-          class=" form-range appearance-none h-2 p-0 bg-blue-600 rounded-full focus:outline-none focus:ring-0 focus:shadow-none     "
+          className=" form-range appearance-none h-2 p-0 bg-blue-600 transition-all hover:bg-white rounded-full focus:outline-none focus:ring-0 focus:shadow-none     "
         />
 
         <VolumeUpIcon

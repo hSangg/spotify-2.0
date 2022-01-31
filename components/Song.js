@@ -30,6 +30,7 @@ export default function Song({ order, song }) {
 
   return (
     <div
+      key={order}
       onClick={playSong}
       className="transition-all cursor-pointer hover:bg-gray-900 hover:scale-101"
     >

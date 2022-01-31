@@ -31,7 +31,7 @@ export default function SongSearch({ song, index }) {
       <div
         onClick={playSong}
         key={index}
-        className="grid items-center grid-cols-2 pt-5 pb-5 hover:bg-gray-900 pl-2 pr-2 "
+        className="grid cursor-pointer items-center grid-cols-2 pt-5 pb-5 hover:bg-gray-900 pl-2 pr-2"
       >
         <div className="flex gap-5">
           <figure className="w-20 h-20">
@@ -42,9 +42,9 @@ export default function SongSearch({ song, index }) {
             <div>
               {song.artists.map((artist, i) => {
                 if (i === song.artists.length - 1) {
-                  return <span>{artist.name}</span>
+                  return <span key={i}>{artist.name}</span>
                 }
-                return <span>{artist.name} x </span>
+                return <span key={i}>{artist.name} x </span>
               })}
             </div>
           </div>

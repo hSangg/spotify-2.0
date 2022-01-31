@@ -1,4 +1,4 @@
-import { ChevronDownIcon } from "@heroicons/react/outline"
+import { ChevronDownIcon, SparklesIcon } from "@heroicons/react/outline"
 import { EmojiHappyIcon } from "@heroicons/react/solid"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
@@ -73,9 +73,16 @@ function Center() {
               <span>PLAY LIST</span> <EmojiHappyIcon className="w-5" />{" "}
             </p>
             <h1 className="font-extrabold text-6xl ">{playlist?.name}</h1>
-            <h1 className="uppercase font-bold xt-1xl mt-6 tracking-widest">
+            <h1 className="uppercase font-bold xt-1xl mt-5 mb-2 tracking-widest">
               Từ: {playlist?.owner?.display_name}.
             </h1>
+
+            <p className="flex items-center gap-1">
+              <span>
+                <SparklesIcon className="w-5 h-5" />
+              </span>
+              <span>{playlist.description}</span>.
+            </p>
           </div>
         </div>
       </section>
