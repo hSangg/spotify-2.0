@@ -12,7 +12,6 @@ export default function Seach({}) {
   const { data: session } = useSession()
   const accessToken = session?.user?.accessToken
   const spotifyAPI = useSpotify()
-
   const debounceSeach = useDebounce(search, 500)
 
   useEffect(() => {
@@ -39,7 +38,8 @@ export default function Seach({}) {
             type="text"
             placeholder="ENTER YOUR SONG NAME "
           />
-          <div>
+
+          <div className="mt-5 mb-20">
             {searchResult.map((song, i) => {
               return <SongSearch song={song} index={i} />
             })}
