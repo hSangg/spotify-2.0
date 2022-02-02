@@ -1,20 +1,19 @@
-import { useSession } from "next-auth/react"
-import { useEffect, useState, useCallback } from "react/cjs/react.development"
-import { useRecoilState, useRecoilValue } from "recoil"
-import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
-import useSongInfor from "../Hooks/useSongInfor"
-import useSpotify from "../Hooks/useSpotify"
 import {
-  SwitchHorizontalIcon,
-  RefreshIcon,
   ChevronLeftIcon,
   ChevronRightIcon,
-  VolumeUpIcon,
+  RefreshIcon,
+  SwitchHorizontalIcon,
   VolumeOffIcon,
+  VolumeUpIcon,
 } from "@heroicons/react/outline"
-
 import { PlayIcon, StopIcon } from "@heroicons/react/solid"
+import { useSession } from "next-auth/react"
+import React, { useCallback, useEffect, useState } from "react"
+import { useRecoilState } from "recoil"
 import { volumeState } from "../atoms/playerAtom"
+import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
+import useSongInfor from "../Hooks/useSongInfor"
+import useSpotify from "../Hooks/useSpotify"
 
 const COLOR_LIST = [
   "to-amber-800",
@@ -95,7 +94,7 @@ export default function Player() {
   const setVolumeDebounce = useCallback(() => {
     if (session?.user?.accessToken) {
       spotifyAPI.setVolume(volume).catch((error) => {
-        throw new Error(error)
+        console.log(error)
       })
     }
   }, [volume])

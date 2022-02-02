@@ -1,11 +1,11 @@
 import { useSession } from "next-auth/react"
-import { useEffect, useState } from "react/cjs/react.development"
+import React, { useEffect, useState } from "react"
 import Player from "../components/Player"
 import SongSearch from "../components/SongSearch"
 import useSpotify from "../Hooks/useSpotify"
 
-export default function Seach({}) {
-  const [search, setSearch] = useState()
+function Search() {
+  const [search, setSearch] = useState("")
   const [searchResult, setSearchResult] = useState([])
 
   const { data: session } = useSession()
@@ -29,13 +29,15 @@ export default function Seach({}) {
       <div className="relative flex-1 overflow-y-scroll h-screen scrollBar">
         <div className="bg-gradient-to-b from-blue-500 h-20 absolute left-0 right-0"></div>
         <div className=" mt-6 ml-6">
-          <input
-            value={search || ""}
-            onChange={(e) => setSearch(e.target.value)}
-            className="searchSong"
-            type="text"
-            placeholder="ENTER YOUR SONG NAME "
-          />
+          <form>
+            <input
+              value={search || ""}
+              onChange={(e) => setSearch(e.target.value)}
+              className="searchSong"
+              type="text"
+              placeholder="ENTER YOUR SONG NAME "
+            />
+          </form>
 
           <div className="mt-5 mb-20">
             {searchResult.map((song, i) => {
@@ -51,3 +53,5 @@ export default function Seach({}) {
     </>
   )
 }
+
+export default Search
