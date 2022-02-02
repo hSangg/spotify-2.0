@@ -1,9 +1,8 @@
 import { useSession } from "next-auth/react"
-import { useCallback, useEffect, useState } from "react/cjs/react.development"
-import { useDebounce } from "use-lodash-debounce"
+import { useEffect, useState } from "react/cjs/react.development"
+import Player from "../components/Player"
 import SongSearch from "../components/SongSearch"
 import useSpotify from "../Hooks/useSpotify"
-import Player from "../components/Player"
 
 export default function Seach({}) {
   const [search, setSearch] = useState()
@@ -12,19 +11,18 @@ export default function Seach({}) {
   const { data: session } = useSession()
   const accessToken = session?.user?.accessToken
   const spotifyAPI = useSpotify()
-  const debounceSeach = useDebounce(search, 500)
 
   useEffect(() => {
     if (!search) return setSearchResult([])
     if (!accessToken) return
 
     spotifyAPI
-      .searchTracks(debounceSeach)
+      .searchTracks(search)
       .then((res) => setSearchResult(res.body.tracks.items))
       .catch((error) => {
         throw new Error(error)
       })
-  }, [debounceSeach, accessToken])
+  }, [search, accessToken])
 
   return (
     <>

@@ -14,7 +14,6 @@ import {
 } from "@heroicons/react/outline"
 
 import { PlayIcon, StopIcon } from "@heroicons/react/solid"
-import { useDebounce } from "use-lodash-debounce"
 import { volumeState } from "../atoms/playerAtom"
 
 const COLOR_LIST = [
@@ -50,7 +49,6 @@ export default function Player() {
   const [shuffle, setShuffle] = useState(true)
 
   const songInfor = useSongInfor()
-  const volumeDebounce = useDebounce(volume, 200)
 
   const fetchCurrentSong = () => {
     if (!songInfor) {
@@ -94,16 +92,16 @@ export default function Player() {
     setRepeat((pre) => !pre)
   }
 
-  useEffect(() => {
-    setVolumeDebounce(volumeDebounce)
-  }, [volumeDebounce])
-
   const setVolumeDebounce = useCallback(() => {
     if (session?.user?.accessToken) {
       spotifyAPI.setVolume(volume).catch((error) => {
         throw new Error(error)
       })
     }
+  }, [volume])
+
+  useEffect(() => {
+    setVolumeDebounce()
   }, [volume])
 
   const handleShuffleClick = () => {
