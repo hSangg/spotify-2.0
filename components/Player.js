@@ -41,6 +41,8 @@ export default function Player() {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   const [volume, setVolume] = useRecoilState(volumeState)
   const [color, setColor] = useState("to-rose-500")
+  const [repeat, setRepeat] = useState(false)
+  const [shuffle, setShuffle] = useState(true)
 
   const songInfor = useSongInfor()
   const volumeDebounce = useDebounce(volume, 200)
@@ -82,17 +84,33 @@ export default function Player() {
     })
   }
 
+  const handleRepeatClick = () => {
+    spotifyAPI.setRepeat("track")
+    setRepeat((pre) => !pre)
+  }
+
   useEffect(() => {
     setVolumeDebounce(volumeDebounce)
   }, [volumeDebounce])
 
   const setVolumeDebounce = useCallback(() => {
-    if (session.user.accessToken) {
+    if (session?.user?.accessToken) {
       spotifyAPI.setVolume(volume).catch((error) => {
         throw new Error(error)
       })
     }
   }, [volume])
+
+  const handleShuffleClick = () => {
+    setShuffle((pre) => !pre)
+    spotifyAPI.setShuffle(shuffle)
+  }
+
+  // if (session?.user?.accessToken) {
+  //   spotifyAPI.getNewReleases({ limit: 20, offset: 1, country: "VN" }).then((data) => {
+  //     console.log(data.body)
+  //   })
+  // }
 
   return (
     <div
@@ -117,12 +135,18 @@ export default function Player() {
       </div>
 
       <div className=" flex items-center icon-player justify-center gap-7 ">
-        <SwitchHorizontalIcon />
+        <SwitchHorizontalIcon
+          onClick={handleShuffleClick}
+          className={!shuffle ? "text-indigo-600" : undefined}
+        />
         <ChevronLeftIcon />
         {!isPlaying && <PlayIcon onClick={handlePlayPause} className="icon_play_pause" />}
         {isPlaying && <StopIcon onClick={handlePlayPause} className="icon_play_pause" />}
         <ChevronRightIcon onClick={() => spotifyAPI.skipToNext()} />
-        <RefreshIcon />
+        <RefreshIcon
+          onClick={handleRepeatClick}
+          className={repeat ? "text-indigo-600" : undefined}
+        />
       </div>
 
       <div className="icon-player flex items-center gap-4 justify-end mr-2.5">

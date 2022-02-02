@@ -46,7 +46,7 @@ function Center() {
   }, [spotifyApi, playlistId])
 
   return (
-    <div className="flex-gow flex-1 overflow-y-scroll scrollBar h-screen">
+    <div className="flex-gow flex-1 overflow-y-scroll scrollBar h-screen overflow-y-hidden">
       <header className="inline-flex scale-75 float-right  backdrop-blur items-center absolute right-0 top-2 translate-x-4 transparentBG rounded-full pr-6 pl-2 pt-2 pb-2">
         <figure className="w-12">
           <img src={session?.user?.image} alt="??" className=" rounded-full" />

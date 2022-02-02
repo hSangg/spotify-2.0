@@ -5,7 +5,7 @@ import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 import useFormatTime from "../Hooks/useFormatTime"
 
-export default function SongSearch({ song, index }) {
+export default function SongSearch({ song }) {
   const spotifyAPI = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
@@ -27,7 +27,6 @@ export default function SongSearch({ song, index }) {
     <>
       <div
         onClick={playSong}
-        key={index}
         className="grid cursor-pointer items-center grid-cols-2 pt-5 pb-5 hover:bg-gray-900 pl-2 pr-2"
       >
         <div className="flex gap-5">

@@ -32,7 +32,7 @@ export default function Seach({}) {
         <div className="bg-gradient-to-b from-blue-500 h-20 absolute left-0 right-0"></div>
         <div className=" mt-6 ml-6">
           <input
-            value={search}
+            value={search || ""}
             onChange={(e) => setSearch(e.target.value)}
             className="searchSong"
             type="text"
@@ -41,7 +41,7 @@ export default function Seach({}) {
 
           <div className="mt-5 mb-20">
             {searchResult.map((song, i) => {
-              return <SongSearch song={song} index={i} />
+              return <SongSearch song={song} key={i} />
             })}
           </div>
         </div>

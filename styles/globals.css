@@ -73,3 +73,12 @@ img {
   border: none;
   outline: none;
 }
+
+.icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16em;
+  height: 16em;
+  transform: translate(-50%, -50%);
+}

@@ -34,20 +34,22 @@ export default function Song({ order, song }) {
       onClick={playSong}
       className="transition-all cursor-pointer hover:bg-gray-900 hover:scale-101"
     >
-      <div className="flex items-center w-auto justify-around pb-3 pt-3">
+      <div className="flex items-center w-auto justify-around pb-4 pt-4">
         <p className="w-10 ml-10">{`0${order + 1}`.slice(-2)}.</p>
         <div className="flex gap-5 items-center grow">
           <figure className="w-16 h-16">
             <img className="rounded-2xl" src={song.track.album.images[0].url} alt="" />
           </figure>
-          <div className=" ">
-            <h1 className="font-bold">{song.track.name}</h1>
+          <div>
+            <h1 className={`font-bold ${currentTrackId === song?.track?.id && "text-green-500"}`}>
+              {song.track.name}
+            </h1>
             <div>
               {song.track.artists.map((artist, i) => {
                 if (i === song.track.artists.length - 1) {
-                  return <span>{artist.name}</span>
+                  return <span key={i}>{artist.name}</span>
                 }
-                return <span>{artist.name} x </span>
+                return <span key={i}>{artist.name} x </span>
               })}
             </div>
           </div>

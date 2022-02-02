@@ -8,7 +8,7 @@ export default function ListSongs() {
   return (
     <div className="text-white mt-5">
       {playlist?.tracks?.items?.map((song, index) => (
-        <Song key={song.track.id} song={song} order={index} />
+        <Song key={song?.track?.id} song={song} order={index} />
       ))}
     </div>
   )

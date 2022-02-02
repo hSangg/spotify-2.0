@@ -1,6 +1,8 @@
 import { FolderOpenIcon, HeartIcon, LogoutIcon, PlusCircleIcon } from "@heroicons/react/outline"
+import { VolumeUpIcon } from "@heroicons/react/solid"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
+import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useRecoilState } from "recoil"
 import { playlistIdState } from "../atoms/playlistAtom"
@@ -8,8 +10,10 @@ import useSpotify from "../Hooks/useSpotify"
 
 function SideBar() {
   const spotifyAPI = useSpotify()
+  const URL = useRouter()
   const { data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
+
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
 
   useEffect(() => {
@@ -18,13 +22,18 @@ function SideBar() {
     }
   }, [session, spotifyAPI])
 
+  const handleCheckURL = () => {
+    console.log("URL: ", URL)
+    URL.pathname !== "/" && URL.push("/")
+  }
+
   return (
-    <div className="h-screen overflow-y-scroll pr-6  scrollBar">
+    <div className="h-screen overflow-y-scroll min-w-[200px] scrollBar">
       <div className="pt-2 pl-5	">
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
           <img className="w-8 mt-2" src="/crown-front-gradient.png" alt="home" />
           <p className="font-medium mb-5 ">
-            <Link href="/">
+            <Link href="/home">
               <a>Home</a>
             </Link>
           </p>
@@ -71,10 +80,18 @@ function SideBar() {
               key={item.id}
               onClick={() => {
                 setPlaylistId(item.id)
+                handleCheckURL()
               }}
-              className=" opacity-50 hover:opacity-100 cursor-pointer mb-1"
+              className={`flex items-center gap-2 opacity-50 hover:opacity-100 cursor-pointer mb-1 ${
+                playlistId === item?.id && "opacity-100 text-green-500"
+              }`}
             >
-              {item.name}
+              <span>{item.name}</span>
+              {playlistId === item?.id && (
+                <span>
+                  <VolumeUpIcon className="w-5" />
+                </span>
+              )}
             </p>
           )
         })}
