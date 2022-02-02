@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react/cjs/react.development"
+import { useEffect, useState } from "react"
 import { useRecoilState } from "recoil"
 import { currentTrackIdState } from "../atoms/songAtom"
 import useSpotify from "./useSpotify"
