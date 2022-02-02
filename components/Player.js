@@ -113,7 +113,9 @@ export default function Player() {
 
   return (
     <div
-      className={`grid grid-cols-3 items-center justify-between backdrop-blur p-4 bg-gradient-to-b from-transparent ${color}`}
+      className={`transition-all grid grid-cols-3 translate-y-28 ${
+        currentTrackId ? "translate-y-0" : undefined
+      } items-center justify-between backdrop-blur p-4 bg-gradient-to-b from-transparent ${color}`}
     >
       <div className="flex items-center ">
         <figure className="w-16 h-16">
