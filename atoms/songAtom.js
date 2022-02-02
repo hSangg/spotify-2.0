@@ -9,3 +9,8 @@ export const isPlayingState = atom({
   key: "isPlayingState",
   default: false,
 })
+
+export const playingTrackState = atom({
+  key: "playingTrackState",
+  default: "",
+})

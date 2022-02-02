@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil"
-import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
+import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 import { HeartIcon } from "@heroicons/react/outline"
 
@@ -17,12 +17,14 @@ export default function Song({ order, song }) {
   const spotifyAPI = useSpotify()
 
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
-
+  const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   const playSong = () => {
     setCurrentTrackId(song.track.id)
     setIsPlaying(true)
+    setPlayingTrack(song)
+
     spotifyAPI.play({
       uris: [song.track.uri],
     })

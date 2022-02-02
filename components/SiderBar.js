@@ -23,7 +23,6 @@ function SideBar() {
   }, [session, spotifyAPI])
 
   const handleCheckURL = () => {
-    console.log("URL: ", URL)
     URL.pathname !== "/" && URL.push("/")
   }
 
