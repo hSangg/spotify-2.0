@@ -1,7 +1,7 @@
 import { useSession } from "next-auth/react"
 import { useEffect, useState, useCallback } from "react/cjs/react.development"
-import { useRecoilState } from "recoil"
-import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
 import useSongInfor from "../Hooks/useSongInfor"
 import useSpotify from "../Hooks/useSpotify"
 import {
@@ -36,9 +36,14 @@ const COLOR_LIST = [
 
 export default function Player() {
   const spotifyAPI = useSpotify()
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
+
+  //need one
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
+  //need two
+  const playingTrack = useR(playingTrackState)
+
   const [volume, setVolume] = useRecoilState(volumeState)
   const [color, setColor] = useState("to-rose-500")
   const [repeat, setRepeat] = useState(false)
@@ -105,12 +110,6 @@ export default function Player() {
     setShuffle((pre) => !pre)
     spotifyAPI.setShuffle(shuffle)
   }
-
-  // if (session?.user?.accessToken) {
-  //   spotifyAPI.getNewReleases({ limit: 20, offset: 1, country: "VN" }).then((data) => {
-  //     console.log(data.body)
-  //   })
-  // }
 
   return (
     <div
