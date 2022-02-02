@@ -42,7 +42,7 @@ export default function Player() {
   //need one
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   //need two
-  const playingTrack = useR(playingTrackState)
+  // const playingTrack = useR(playingTrackState)
 
   const [volume, setVolume] = useRecoilState(volumeState)
   const [color, setColor] = useState("to-rose-500")
