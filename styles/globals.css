@@ -82,3 +82,17 @@ img {
   height: 16em;
   transform: translate(-50%, -50%);
 }
+
+.box-gradient {
+  width: 2px;
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  background: rgb(113, 137, 255);
+  background: radial-gradient(circle, rgba(113, 137, 255, 1) 0%, rgba(252, 198, 209, 1) 100%);
+}
+
+.box-shadow-list {
+  margin: 20px;
+  box-shadow: inset 10px 10px 10px black;
+}
