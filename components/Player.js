@@ -44,73 +44,71 @@ export default function Player() {
   const playingTrack = useRecoilValue(playingTrackState)
   const uri = playingTrack?.track?.uri
 
-  const [volume, setVolume] = useRecoilState(volumeState)
-  const [color, setColor] = useState("to-rose-500")
-  const [repeat, setRepeat] = useState(false)
-  const [shuffle, setShuffle] = useState(true)
+  // const [volume, setVolume] = useRecoilState(volumeState)
+  // const [color, setColor] = useState("to-rose-500")
+  // const [repeat, setRepeat] = useState(false)
+  // const [shuffle, setShuffle] = useState(true)
 
-  const songInfor = useSongInfor()
+  // const songInfor = useSongInfor()
 
-  const fetchCurrentSong = () => {
-    if (!songInfor) {
-      spotifyAPI.getMyCurrentPlayingTrack().then((data) => {
-        setCurrentTrackId(data.body?.item?.id)
+  // const fetchCurrentSong = () => {
+  //   if (!songInfor) {
+  //     spotifyAPI.getMyCurrentPlayingTrack().then((data) => {
+  //       setCurrentTrackId(data.body?.item?.id)
 
-        spotifyAPI.getMyCurrentPlaybackState().then((data) => {
-          setIsPlaying(data.body?.is_playing)
-        })
-      })
-    }
-  }
+  //       spotifyAPI.getMyCurrentPlaybackState().then((data) => {
+  //         setIsPlaying(data.body?.is_playing)
+  //       })
+  //     })
+  //   }
+  // }
 
-  useEffect(() => {
-    const newColor = COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)]
-    setColor(newColor)
-  }, [songInfor])
+  // useEffect(() => {
+  //   const newColor = COLOR_LIST[Math.floor(Math.random() * COLOR_LIST.length)]
+  //   setColor(newColor)
+  // }, [songInfor])
 
-  useEffect(() => {
-    if (spotifyAPI.getAccessToken() && !currentTrackId) {
-      //fetch song infor
-      fetchCurrentSong()
-      setVolume(50)
-    }
-  }, [currentTrackIdState, spotifyAPI, session])
+  // useEffect(() => {
+  //   if (spotifyAPI.getAccessToken() && !currentTrackId) {
+  //     //fetch song infor
+  //     fetchCurrentSong()
+  //     setVolume(50)
+  //   }
+  // }, [currentTrackIdState, spotifyAPI, session])
 
-  const handlePlayPause = () => {
-    spotifyAPI.getMyCurrentPlaybackState().then((data) => {
-      if (data.body.is_playing) {
-        spotifyAPI.pause()
-        setIsPlaying(false)
-      } else {
-        spotifyAPI.play()
-        setIsPlaying(true)
-      }
-    })
-  }
+  // const handlePlayPause = () => {
+  //   spotifyAPI.getMyCurrentPlaybackState().then((data) => {
+  //     if (data.body.is_playing) {
+  //       spotifyAPI.pause()
+  //       setIsPlaying(false)
+  //     } else {
+  //       spotifyAPI.play()
+  //       setIsPlaying(true)
+  //     }
+  //   })
+  // }
 
-  const handleRepeatClick = () => {
-    spotifyAPI.setRepeat("track")
-    setRepeat((pre) => !pre)
-  }
+  // const handleRepeatClick = () => {
+  //   spotifyAPI.setRepeat("track")
+  //   setRepeat((pre) => !pre)
+  // }
 
-  const setVolumeDebounce = useCallback(() => {
-    if (session?.user?.accessToken) {
-      spotifyAPI.setVolume(volume).catch((error) => {
-        console.log(error)
-      })
-    }
-  }, [volume])
+  // const setVolumeDebounce = useCallback(() => {
+  //   if (session?.user?.accessToken) {
+  //     spotifyAPI.setVolume(volume).catch((error) => {
+  //       console.log(error)
+  //     })
+  //   }
+  // }, [volume])
 
-  useEffect(() => {
-    setVolumeDebounce()
-  }, [volume])
+  // useEffect(() => {
+  //   setVolumeDebounce()
+  // }, [volume])
 
-  const handleShuffleClick = () => {
-    setShuffle((pre) => !pre)
-    spotifyAPI.setShuffle(shuffle)
-  }
-
-  if (!session?.user?.accessToken) return null
+  // const handleShuffleClick = () => {
+  //   setShuffle((pre) => !pre)
+  //   spotifyAPI.setShuffle(shuffle)
+  // }
 
   useEffect(() => {
     if (uri) {
