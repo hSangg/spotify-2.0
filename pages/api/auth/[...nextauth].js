@@ -4,68 +4,25 @@ import spotifyAPI, { LOGIN_URL } from "../../../lib/spotify"
 
 async function refreshAccessToken(token) {
   try {
-    const url =
-      "https://accounts.spotify.com/api/token?" +
-      new URLSearchParams({
-        client_id: process.env.SPOTIFY_CLIENT_ID,
-        client_secret: process.env.SPOTIFY_CLIENT_SECRET,
-        grant_type: "refresh_token",
-        refresh_token: token.refreshToken,
-      })
+    spotifyAPI.setAccessToken(token.accessToken)
+    spotifyAPI.setRefreshToken(token.refreshToken)
 
-    const response = await fetch(url, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      method: "POST",
-    })
-
-    const refreshedTokens = await response.json()
-
-    if (!response.ok) {
-      throw refreshedTokens
-    }
+    const { body: refreshedToken } = await spotifyAPI.refreshAccessToken()
 
     return {
       ...token,
-      accessToken: refreshedTokens.access_token,
-      accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
-      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
+      accessToken: refreshedToken.access_token,
+      acccessTokenExpires: Date.now + refreshedToken.expires_in * 1000,
+      refreshToken: refreshedToken.refresh_token ?? token.refreshToken,
     }
   } catch (error) {
-    console.log(error)
-
+    console.log("error: ", error)
     return {
       ...token,
-      error: "RefreshAccessTokenError",
+      error: "refreshtokenerror",
     }
   }
 }
-
-// async function refreshAccessToken(token) {
-//   try {
-//     spotifyAPI.setAccessToken(token.accessToken)
-//     spotifyAPI.setRefreshToken(token.refreshToken)
-
-//     const { body: refreshedToken } =
-//       await spotifyAPI.refreshAccessToken()
-
-//     return {
-//       ...token,
-//       accessToken: refreshedToken.access_token,
-//       acccessTokenExpires:
-//         Date.now + refreshedToken.expires_in * 1000,
-//       refreshToken:
-//         refreshedToken.refresh_token ?? token.refreshToken,
-//     }
-//   } catch (error) {
-//     console.log("error: ", error)
-//     return {
-//       ...token,
-//       error: "refreshtokenerror",
-//     }
-//   }
-// }
 
 export default NextAuth({
   // Configure one or more authentication providers
