@@ -9,9 +9,10 @@ import {
 import { PlayIcon, StopIcon } from "@heroicons/react/solid"
 import { useSession } from "next-auth/react"
 import React, { useCallback, useEffect, useState } from "react"
-import { useRecoilState } from "recoil"
+import SpotifyWebPlayer from "react-spotify-web-playback/lib"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { volumeState } from "../atoms/playerAtom"
-import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
+import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
 import useSongInfor from "../Hooks/useSongInfor"
 import useSpotify from "../Hooks/useSpotify"
 
@@ -40,7 +41,8 @@ export default function Player() {
   //need one
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   //need two
-  // const playingTrack = useR(playingTrackState)
+  const playingTrack = useRecoilValue(playingTrackState)
+  const uri = playingTrack?.track?.uri
 
   const [volume, setVolume] = useRecoilState(volumeState)
   const [color, setColor] = useState("to-rose-500")
@@ -108,63 +110,94 @@ export default function Player() {
     spotifyAPI.setShuffle(shuffle)
   }
 
+  if (!session?.user?.accessToken) return null
+
+  useEffect(() => {
+    if (uri) {
+      setIsPlaying(true)
+    }
+  }, [session?.user?.accessToken])
+
+  if (!session?.user?.accessToken) return null
   return (
-    <div
-      className={`transition-all grid grid-cols-3 translate-y-28 ${
-        currentTrackId ? "translate-y-0" : undefined
-      } items-center justify-between backdrop-blur p-4 bg-gradient-to-b from-transparent ${color}`}
-    >
-      <div className="flex items-center ">
-        <figure className="w-16 h-16">
-          <img src={songInfor?.album?.images?.[0]?.url} alt="" />
-        </figure>
+    // <div
+    //   className={`transition-all grid grid-cols-3 translate-y-28 ${
+    //     currentTrackId ? "translate-y-0" : undefined
+    //   } items-center justify-between backdrop-blur p-4 bg-gradient-to-b from-transparent ${color}`}
+    // >
+    //   <div className="flex items-center ">
+    //     <figure className="w-16 h-16">
+    //       <img src={songInfor?.album?.images?.[0]?.url} alt="" />
+    //     </figure>
 
-        <div className="ml-5">
-          <h1 className="font-bold">{songInfor?.name}</h1>
-          <div>
-            {songInfor?.artists?.map((artist, i) => {
-              if (i === songInfor?.artists.length - 1) {
-                return <span key={i}>{artist.name}</span>
-              }
-              return <span key={i}>{artist.name} x </span>
-            })}
-          </div>
-        </div>
-      </div>
+    //     <div className="ml-5">
+    //       <h1 className="font-bold">{songInfor?.name}</h1>
+    //       <div>
+    //         {songInfor?.artists?.map((artist, i) => {
+    //           if (i === songInfor?.artists.length - 1) {
+    //             return <span key={i}>{artist.name}</span>
+    //           }
+    //           return <span key={i}>{artist.name} x </span>
+    //         })}
+    //       </div>
+    //     </div>
+    //   </div>
 
-      <div className=" flex items-center icon-player justify-center gap-7 ">
-        <SwitchHorizontalIcon
-          onClick={handleShuffleClick}
-          className={!shuffle ? "text-indigo-600" : undefined}
-        />
-        <ChevronLeftIcon />
-        {!isPlaying && <PlayIcon onClick={handlePlayPause} className="icon_play_pause" />}
-        {isPlaying && <StopIcon onClick={handlePlayPause} className="icon_play_pause" />}
-        <ChevronRightIcon onClick={() => spotifyAPI.skipToNext()} />
-        <RefreshIcon
-          onClick={handleRepeatClick}
-          className={repeat ? "text-indigo-600" : undefined}
-        />
-      </div>
+    //   <div className=" flex items-center icon-player justify-center gap-7 ">
+    //     <SwitchHorizontalIcon
+    //       onClick={handleShuffleClick}
+    //       className={!shuffle ? "text-indigo-600" : undefined}
+    //     />
+    //     <ChevronLeftIcon />
+    //     {!isPlaying && <PlayIcon onClick={handlePlayPause} className="icon_play_pause" />}
+    //     {isPlaying && <StopIcon onClick={handlePlayPause} className="icon_play_pause" />}
+    //     <ChevronRightIcon onClick={() => spotifyAPI.skipToNext()} />
+    //     <RefreshIcon
+    //       onClick={handleRepeatClick}
+    //       className={repeat ? "text-indigo-600" : undefined}
+    //     />
+    //   </div>
 
-      <div className="icon-player flex items-center gap-4 justify-end mr-2.5">
-        <VolumeOffIcon className=" flex items-center" onClick={() => setVolume(0)} />
+    //   <div className="icon-player flex items-center gap-4 justify-end mr-2.5">
+    //     <VolumeOffIcon className=" flex items-center" onClick={() => setVolume(0)} />
 
-        <input
-          min={0}
-          value={volume}
-          max={100}
-          onChange={(e) => setVolume(Number(e.target.value))}
-          type="range"
-          className=" form-range appearance-none h-2 p-0 bg-blue-600 transition-all hover:bg-white rounded-full focus:outline-none focus:ring-0 focus:shadow-none     "
-        />
+    //     <input
+    //       min={0}
+    //       value={volume}
+    //       max={100}
+    //       onChange={(e) => setVolume(Number(e.target.value))}
+    //       type="range"
+    //       className=" form-range appearance-none h-2 p-0 bg-blue-600 transition-all hover:bg-white rounded-full focus:outline-none focus:ring-0 focus:shadow-none     "
+    //     />
 
-        <VolumeUpIcon
-          onClick={() => {
-            volume < 100 && setVolume((pre) => pre + 10)
+    //     <VolumeUpIcon
+    //       onClick={() => {
+    //         volume < 100 && setVolume((pre) => pre + 10)
+    //       }}
+    //     />
+    //   </div>
+    // </div>
+
+    //#22c55e
+
+    <div>
+      {uri && session.user.accessToken && (
+        <SpotifyWebPlayer
+          styles={{
+            sliderTrackColor: "transparent",
+            sliderColor: "#22c55e",
+            sliderHandleColor: "white",
           }}
+          token={session?.user?.accessToken}
+          showSaveIcon
+          callback={(state) => {
+            setIsPlaying(state.isPlaying)
+          }}
+          play={isPlaying}
+          uris={uri ? [uri] : []}
+          autoPlay={true}
         />
-      </div>
+      )}
     </div>
   )
 }
