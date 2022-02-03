@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react"
 import Player from "../components/Player"
 import SongSearch from "../components/SongSearch"
 import useSpotify from "../Hooks/useSpotify"
-import { useDebounce } from "use-lodash-debounce"
 
 function Search() {
   const [search, setSearch] = useState("")
@@ -13,19 +12,17 @@ function Search() {
   const accessToken = session?.user?.accessToken
   const spotifyAPI = useSpotify()
 
-  const searchDebounce = useDebounce(search, 200)
-
   useEffect(() => {
     if (!search) return setSearchResult([])
     if (!accessToken) return
 
     spotifyAPI
-      .searchTracks(searchDebounce)
+      .searchTracks(search)
       .then((res) => setSearchResult(res.body.tracks.items))
       .catch((error) => {
         throw new Error(error)
       })
-  }, [searchDebounce, accessToken])
+  }, [search, accessToken])
 
   return (
     <>
