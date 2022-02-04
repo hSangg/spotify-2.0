@@ -36,6 +36,7 @@ const COLOR_LIST = [
 export default function Player() {
   const spotifyAPI = useSpotify()
   const { data: session } = useSession()
+  console.log("session: ", session)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
 
   //need one
@@ -43,6 +44,8 @@ export default function Player() {
   //need two
   const playingTrack = useRecoilValue(playingTrackState)
   const uri = playingTrack?.track?.uri
+
+  const [showPlayer, setShowPlayer] = useState(false)
 
   // const [volume, setVolume] = useRecoilState(volumeState)
   // const [color, setColor] = useState("to-rose-500")
@@ -111,9 +114,14 @@ export default function Player() {
   // }
 
   useEffect(() => {
+    setShowPlayer(true)
+  }, [])
+
+  useEffect(() => {
     if (uri) {
       setIsPlaying(true)
     }
+    if (!session?.user?.accessToken) return null
   }, [session?.user?.accessToken])
 
   if (!session?.user?.accessToken) return null
@@ -179,7 +187,7 @@ export default function Player() {
     //#22c55e
 
     <div>
-      {uri && session.user.accessToken && (
+      {showPlayer && (
         <SpotifyWebPlayer
           styles={{
             sliderTrackColor: "transparent",
