@@ -4,14 +4,18 @@ import { useRecoilState } from "recoil"
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 import useFormatTime from "../Hooks/useFormatTime"
+import { playingTrackState } from "../atoms/songAtom"
 
 export default function SongSearch({ song }) {
+  console.log('song in search: ', song);
   const spotifyAPI = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
+  const [currentTrack, setCurrentTrack] = useRecoilState(playingTrackState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   const playSong = () => {
     setCurrentTrackId(song.id)
+    setCurrentTrack(song)
     setIsPlaying(true)
     spotifyAPI.play({
       uris: [song.uri],

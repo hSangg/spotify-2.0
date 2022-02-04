@@ -43,7 +43,7 @@ export default function Player() {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
   //need two
   const playingTrack = useRecoilValue(playingTrackState)
-  const uri = playingTrack?.track?.uri
+  const uri = playingTrack?.uri
 
   const [showPlayer, setShowPlayer] = useState(false)
 
@@ -194,7 +194,7 @@ export default function Player() {
             sliderColor: "#22c55e",
             sliderHandleColor: "white",
           }}
-          token={session?.user?.accessToken}
+          token={session.user.accessToken}
           showSaveIcon
           callback={(state) => {
             setIsPlaying(state.isPlaying)

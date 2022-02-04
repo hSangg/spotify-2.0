@@ -1,5 +1,5 @@
-import { FolderOpenIcon, HeartIcon, LogoutIcon, PlusCircleIcon } from "@heroicons/react/outline"
-import { VolumeUpIcon } from "@heroicons/react/solid"
+import { FolderOpenIcon, LogoutIcon, PlusCircleIcon } from "@heroicons/react/outline"
+import { VolumeUpIcon, HeartIcon } from "@heroicons/react/solid"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -66,7 +66,7 @@ function SideBar() {
         </button>
 
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <HeartIcon className="h-5 mt-2" />
+          <HeartIcon className="h-5 mt-2 fill-blue-400" />
           <p className="font-medium	mb-3  ">Liked song.</p>
         </button>
         <hr className="border-t-[0.01px] border-zinc-700 mt-3 mb-3" />

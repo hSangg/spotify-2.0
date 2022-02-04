@@ -1,8 +1,6 @@
-import Head from "next/head"
-import SideBar from "../components/SiderBar"
-import Center from "../components/Center"
 import { getSession } from "next-auth/react"
-import Player from "../components/Player"
+import Head from "next/head"
+import Center from "../components/Center"
 
 export default function Home() {
   return (
@@ -14,9 +12,6 @@ export default function Home() {
 
       <main className="bg-black text-white flex ">
         <Center />
-        <div className="fixed bottom-0 left-0 right-0 ">
-          <Player />
-        </div>
       </main>
     </div>
   )

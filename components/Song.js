@@ -1,7 +1,13 @@
 import { useRecoilState } from "recoil"
-import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
+import {
+  currentTrackIdState,
+  isPlayingState,
+  likeSongListState,
+  playingTrackState,
+} from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 import { HeartIcon } from "@heroicons/react/outline"
+import { useEffect } from "react"
 
 function msToHMS(duration) {
   let milliseconds = parseInt((duration % 1000) / 100)
@@ -14,16 +20,36 @@ function msToHMS(duration) {
 }
 
 export default function Song({ order, song }) {
+  console.log("song: ", song)
   const spotifyAPI = useSpotify()
 
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [playingTrack, setPlayingTrack] = useRecoilState(playingTrackState)
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
+  const [likeList, setLikeList] = useRecoilState(likeSongListState)
+  console.log("likeList: ", likeList)
+
+  useEffect(() => {
+    spotifyAPI
+      .getMySavedTracks({
+        limit: 50,
+        offset: 0,
+      })
+      .then(
+        function (data) {
+          setLikeList(data?.body?.items?.map((item) => item.track.id))
+        },
+        function (err) {
+          console.log("Something went wrong!", err)
+        }
+      )
+  }, [])
+
   const playSong = () => {
     setCurrentTrackId(song.track.id)
     setIsPlaying(true)
-    setPlayingTrack(song)
+    setPlayingTrack(song.track)
 
     spotifyAPI.play({
       uris: [song.track.uri],
@@ -60,7 +86,11 @@ export default function Song({ order, song }) {
         <h3 className="mr-5">{msToHMS(song.track.duration_ms)}</h3>
         <div className="mr-20 flex items-center gap-4">
           <button className="w-6">
-            <HeartIcon />
+            <HeartIcon
+              className={
+                likeList.includes(song?.track?.id) ? "fill-blue-500 text-blue-500 " : undefined
+              }
+            />
           </button>
           <button>{song.added_at.substring(0, 10)}</button>
         </div>
