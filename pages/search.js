@@ -29,11 +29,11 @@ function Search() {
       <div className="relative flex-1 overflow-y-scroll h-screen scrollBar">
         <div className="bg-gradient-to-b from-blue-500 h-20 absolute left-0 right-0"></div>
         <div className=" mt-6 ml-6">
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <input
               value={search || ""}
               onChange={(e) => setSearch(e.target.value)}
-              className="searchSong"
+              className="searchSong text-[3rem] mt-5 md:mt-0 md:text-[4rem]"
               type="text"
               placeholder="ENTER YOUR SONG NAME "
             />
@@ -45,10 +45,6 @@ function Search() {
             })}
           </div>
         </div>
-      </div>
-
-      <div className="fixed bottom-0 left-0 right-0">
-        <Player />
       </div>
     </>
   )

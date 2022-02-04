@@ -65,7 +65,7 @@ export default function Song({ order, song }) {
       <div className="flex items-center w-auto justify-around pb-4 pt-4">
         <p className="w-10 ml-10">{`0${order + 1}`.slice(-2)}.</p>
         <div className="flex gap-5 items-center grow">
-          <figure className="w-16 h-16">
+          <figure className="w-16 h-16 shrink-0">
             <img className="rounded-2xl" src={song.track.album.images[0].url} alt="" />
           </figure>
           <div>
@@ -83,16 +83,18 @@ export default function Song({ order, song }) {
           </div>
         </div>
 
-        <h3 className="mr-5">{msToHMS(song.track.duration_ms)}</h3>
-        <div className="mr-20 flex items-center gap-4">
-          <button className="w-6">
-            <HeartIcon
-              className={
-                likeList.includes(song?.track?.id) ? "fill-blue-500 text-blue-500 " : undefined
-              }
-            />
-          </button>
-          <button>{song.added_at.substring(0, 10)}</button>
+        <div className=" hidden md:flex md:items-center md:block">
+          <h3 className="mr-5">{msToHMS(song.track.duration_ms)}</h3>
+          <div className="mr-20 flex items-center gap-4">
+            <button className="w-6">
+              <HeartIcon
+                className={
+                  likeList.includes(song?.track?.id) ? "fill-blue-500 text-blue-500 " : undefined
+                }
+              />
+            </button>
+            <button>{song.added_at.substring(0, 10)}</button>
+          </div>
         </div>
       </div>
       <hr className="border-t-[0.01px] border-zinc-700 " />

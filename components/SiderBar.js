@@ -28,86 +28,98 @@ function SideBar() {
     URL.pathname !== "/" && URL.push("/")
   }
 
+  const gotoHomePage = () => {
+    URL.push("/home")
+  }
+
+  const gotoSearchPage = () => {
+    URL.push("/search")
+  }
+
   return (
-    <div className="relative h-screen overflow-y-scroll min-w-[200px] scrollBar">
+    <div className="relative h-screen min-w-[50px] overflow-y-scroll md:min-w-[200px] scrollBar ">
       <div className="pt-2 pl-5	">
-        <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <img className="w-8 mt-2" src="/crown-front-gradient.png" alt="home" />
-          <p className="font-medium mb-5 ">
-            <Link href="/home">
-              <a>Home</a>
-            </Link>
+        <button
+          onClick={gotoHomePage}
+          className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 "
+        >
+          <img className="w-9 md:w-8 mt-2" src="/crown-front-gradient.png" alt="home" />
+          <p className="font-mediummb-5  hidden md:block">
+            <a>Home</a>
+          </p>
+        </button>
+
+        <button
+          onClick={gotoSearchPage}
+          className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 "
+        >
+          <img className="w-9 md:w-8 mt-2" src="/zoom-dynamic-gradient.png" alt="home" />
+          <p className="font-mediummb-5  hidden md:block">
+            <a>Search</a>
           </p>
         </button>
 
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <img className="w-8 mt-2" src="/zoom-dynamic-gradient.png" alt="home" />
-          <p className="font-medium mb-5 ">
-            <Link href="/search">
-              <a>Search</a>
-            </Link>
-          </p>
-        </button>
-
-        <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <img className="w-8 mt-2" src="/star-dynamic-gradient.png" alt="home" />
-          <p className="font-medium	 mb-5 ">Your library</p>
+          <img className="w-9 md:w-8 mt-2" src="/star-dynamic-gradient.png" alt="home" />
+          <p className="font-medium mb-5 hidden md:block ">Your library</p>
         </button>
         <hr className="border-t-[0.01px] border-zinc-700 mt-5" />
       </div>
 
       <div className=" pl-5	">
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <PlusCircleIcon className="h-5 mt-2" />
-          <p className="font-medium	 mb-3 ">Create Playlist.</p>
+          <PlusCircleIcon className="h-7 ml-1 mt-3 md:ml-0 md:h-5 md:mt-2" />
+          <p className="font-medium mb-3 hidden md:block ">Create Playlist.</p>
         </button>
 
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <FolderOpenIcon className="h-5 mt-2" />
-          <p className="font-medium	 mb-3 ">Your Episodes.</p>
+          <FolderOpenIcon className="h-7 ml-1 mt-3 md:ml-0 md:h-5 md:mt-2" />
+          <p className="font-medium mb-3 hidden md:block ">Your Episodes.</p>
         </button>
 
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
-          <HeartIcon className="h-5 mt-2 fill-blue-400" />
-          <p className="font-medium	mb-3  ">Liked song.</p>
+          <HeartIcon className="h-7 ml-1 mt-3 md:ml-0 md:h-5 md:mt-2 fill-blue-400" />
+          <p className="font-mediummb-3  hidden md:block ">Liked song.</p>
         </button>
         <hr className="border-t-[0.01px] border-zinc-700 mt-3 mb-3" />
 
-        <h1 className="mb-3 font-bold">PLAYLIST</h1>
+        <h1 className="hidden md:block mb-3 font-bold">PLAYLIST</h1>
 
-        {playlists.map((item) => {
-          return (
-            <p
-              key={item.id}
-              onClick={() => {
-                setPlaylistId(item.id)
-                handleCheckURL()
-              }}
-              className={`flex items-center gap-2 opacity-50 hover:opacity-100 cursor-pointer mb-1 ${
-                playlistId === item?.id && "opacity-100 text-green-500"
-              }`}
-            >
-              <span>{item.name}</span>
-              {playlistId === item?.id && (
-                <span>
-                  <VolumeUpIcon className="w-5" />
-                </span>
-              )}
-            </p>
-          )
-        })}
+        <div className="hidden md:block">
+          {playlists.map((item) => {
+            return (
+              <p
+                key={item.id}
+                onClick={() => {
+                  setPlaylistId(item.id)
+                  handleCheckURL()
+                }}
+                className={`flex items-center gap-2 opacity-50 hover:opacity-100 cursor-pointer mb-1 ${
+                  playlistId === item?.id && "opacity-100 text-green-500"
+                }`}
+              >
+                <span>{item.name}</span>
+                {playlistId === item?.id && (
+                  <span>
+                    <VolumeUpIcon className="w-5" />
+                  </span>
+                )}
+              </p>
+            )
+          })}
+        </div>
 
         <button
           onClick={() => signOut()}
           className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 "
         >
-          <LogoutIcon className="h-5 mt-2" />
-          <p className="font-medium	mb-3  ">Log out</p>
+          <LogoutIcon className="h-5 mt-2 ml-2 md:ml-0" />
+          <p className="font-medium	mb-3 hidden md:block ">Log out</p>
         </button>
       </div>
 
       <div>
-        <figure className="absolute left-0 right-0 bottom-[72px] p-4">
+        <figure className="absolute left-0 right-0 bottom-0 p-4 lg:bottom-[72px] ">
           <img src={song?.album?.images?.[0]?.url} alt="" className="rounded-xl" />
         </figure>
       </div>

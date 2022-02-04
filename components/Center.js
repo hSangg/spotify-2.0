@@ -46,8 +46,8 @@ function Center() {
   }, [spotifyApi, playlistId])
 
   return (
-    <div className="flex-gow flex-1 overflow-y-scroll scrollBar h-screen overflow-y-hidden">
-      <header className="inline-flex scale-75 float-right  backdrop-blur items-center absolute right-0 top-2 translate-x-4 transparentBG rounded-full pr-6 pl-2 pt-2 pb-2">
+    <div className=" flex-gow flex-1 overflow-y-scroll scrollBar h-screen overflow-y-hidden">
+      <header className="hidden md-block inline-flex scale-75 float-right  backdrop-blur items-center absolute right-0 top-2 translate-x-4 transparentBG rounded-full pr-6 pl-2 pt-2 pb-2">
         <figure className="w-12">
           <img src={session?.user?.image} alt="??" className=" rounded-full" />
         </figure>
@@ -64,14 +64,14 @@ function Center() {
 
       <section className={`h-80 bg-gradient-to-t from-black ${color}`}>
         <div className="flex translate-x-7 translate-y-12 ">
-          <figure className="w-48 h-48 flex-shrink-0">
+          <figure className="w-44 h-44  md:mt-0 md:w-48 md:h-48 shrink-0">
             <img src={playlist?.images?.[0]?.url} alt={playlist?.id} />
           </figure>
           <div className="ml-7">
             <p className="font-bold mb-4 flex gap-2">
               <span>PLAY LIST</span> <EmojiHappyIcon className="w-5" />{" "}
             </p>
-            <h1 className="font-extrabold text-6xl ">{playlist?.name}</h1>
+            <h1 className="font-extrabold text-5xl md:text-6xl ">{playlist?.name}</h1>
             <h1 className="uppercase font-bold xt-1xl mt-5 mb-2 tracking-widest">
               Từ: {playlist?.owner?.display_name}.
             </h1>
