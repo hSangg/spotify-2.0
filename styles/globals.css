@@ -144,6 +144,31 @@ img {
   margin-top: 40px;
 }
 
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-animate {
+  animation: spin 10s linear infinite;
+}
+
+.spin-animate::after {
+  content: "";
+  position: absolute;
+  top: 70px;
+  bottom: 70px;
+  left: 70px;
+  right: 70px;
+
+  background-color: rgb(0, 0, 0);
+  border-radius: 999px;
+}
+
 @media (min-width: 1024px) {
   .PlayerRSWP {
     /* display: block; */

@@ -119,8 +119,8 @@ function SideBar() {
       </div>
 
       <div>
-        <figure className="absolute left-0 right-0 mt-5 p-4 md:mt-[30px] ">
-          <img src={song?.album?.images?.[0]?.url} alt="" className="rounded-xl" />
+        <figure className="absolute left-0 right-0 mt-5 p-4 md:mt-[30px] spin-animate ">
+          <img src={song?.album?.images?.[0]?.url} alt="" className="rounded-full" />
         </figure>
       </div>
     </div>

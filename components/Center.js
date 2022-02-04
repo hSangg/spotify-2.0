@@ -63,11 +63,11 @@ function Center() {
       </header>
 
       <section className={`h-80 bg-gradient-to-t from-black ${color}`}>
-        <div className="flex translate-x-7 translate-y-12 ">
+        <div className="flex pt-[30px] pl-[25px]  ">
           <figure className="w-44 h-44  md:mt-0 md:w-48 md:h-48 shrink-0">
             <img src={playlist?.images?.[0]?.url} alt={playlist?.id} />
           </figure>
-          <div className="ml-7">
+          <div className="ml-7 ">
             <p className="font-bold md:mb-4 flex gap-2">
               <span>PLAY LIST</span> <EmojiHappyIcon className="w-5" />{" "}
             </p>
