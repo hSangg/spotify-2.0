@@ -103,7 +103,9 @@ img {
   padding: 10px 0 !important;
   position: relative !important;
 
-  display: none;
+  transition: 0.2s ease-in-out;
+  visibility: hidden;
+  opacity: 0;
 }
 
 .PlayerRSWP img {
@@ -138,8 +140,14 @@ img {
   top: 0;
 }
 
+.picture-art {
+  margin-top: 40px;
+}
+
 @media (min-width: 1024px) {
   .PlayerRSWP {
-    display: block;
+    /* display: block; */
+    visibility: visible;
+    opacity: 1;
   }
 }

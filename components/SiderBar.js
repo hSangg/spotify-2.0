@@ -37,7 +37,7 @@ function SideBar() {
   }
 
   return (
-    <div className="relative h-screen min-w-[50px] overflow-y-scroll md:min-w-[200px] scrollBar ">
+    <div className="relative transition-all min-w-[50px] h-screen mb-[150px] overflow-y-scroll md:min-w-[200px] scrollBar ">
       <div className="pt-2 pl-5	">
         <button
           onClick={gotoHomePage}
@@ -119,7 +119,7 @@ function SideBar() {
       </div>
 
       <div>
-        <figure className="absolute left-0 right-0 bottom-0 p-4 lg:bottom-[72px] ">
+        <figure className="absolute left-0 right-0 mt-5 p-4 md:mt-[30px] ">
           <img src={song?.album?.images?.[0]?.url} alt="" className="rounded-xl" />
         </figure>
       </div>
