@@ -15,7 +15,6 @@ function SideBar() {
   const { data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
   const song = useRecoilValue(playingTrackState)
-  console.log("song: ", song)
 
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
 
@@ -109,7 +108,7 @@ function SideBar() {
 
       <div>
         <figure className="absolute left-0 right-0 bottom-[72px] p-4">
-          <img src={song.album.images[0].url} alt="" className="rounded-xl" />
+          <img src={song?.album?.images?.[0]?.url} alt="" className="rounded-xl" />
         </figure>
       </div>
     </div>
