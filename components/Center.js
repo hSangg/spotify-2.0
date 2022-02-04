@@ -47,7 +47,7 @@ function Center() {
 
   return (
     <div className=" flex-gow flex-1 overflow-y-scroll scrollBar h-screen overflow-y-hidden">
-      <header className="hidden md-block inline-flex scale-75 float-right  backdrop-blur items-center absolute right-0 top-2 translate-x-4 transparentBG rounded-full pr-6 pl-2 pt-2 pb-2">
+      <header className=" invisible md:visible md-block inline-flex scale-75 float-right  backdrop-blur items-center absolute right-0 top-2 translate-x-4 transparentBG rounded-full pr-6 pl-2 pt-2 pb-2">
         <figure className="w-12">
           <img src={session?.user?.image} alt="??" className=" rounded-full" />
         </figure>
@@ -68,15 +68,17 @@ function Center() {
             <img src={playlist?.images?.[0]?.url} alt={playlist?.id} />
           </figure>
           <div className="ml-7">
-            <p className="font-bold mb-4 flex gap-2">
+            <p className="font-bold md:mb-4 flex gap-2">
               <span>PLAY LIST</span> <EmojiHappyIcon className="w-5" />{" "}
             </p>
-            <h1 className="font-extrabold text-5xl md:text-6xl ">{playlist?.name}</h1>
-            <h1 className="uppercase font-bold xt-1xl mt-5 mb-2 tracking-widest">
+            <h1 className="font-extrabold text-5xl md:text-6xl leading-[35px] ">
+              {playlist?.name}
+            </h1>
+            <h1 className="uppercase font-bold xt-1xl mt-2 md:mt-5 mb-2  tracking-widest">
               Từ: {playlist?.owner?.display_name}.
             </h1>
 
-            <p className="flex items-center gap-1">
+            <p className="flex items-center gap-1 invisible md:visible">
               <span>
                 <SparklesIcon className="w-5 h-5" />
               </span>
