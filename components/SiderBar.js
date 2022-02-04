@@ -4,8 +4,9 @@ import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { useRecoilState } from "recoil"
+import { useRecoilState, useRecoilValue } from "recoil"
 import { playlistIdState } from "../atoms/playlistAtom"
+import { playingTrackState } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 
 function SideBar() {
@@ -13,6 +14,8 @@ function SideBar() {
   const URL = useRouter()
   const { data: session, status } = useSession()
   const [playlists, setPlaylists] = useState([])
+  const song = useRecoilValue(playingTrackState)
+  console.log("song: ", song)
 
   const [playlistId, setPlaylistId] = useRecoilState(playlistIdState)
 
@@ -27,7 +30,7 @@ function SideBar() {
   }
 
   return (
-    <div className="h-screen overflow-y-scroll min-w-[200px] scrollBar">
+    <div className="relative h-screen overflow-y-scroll min-w-[200px] scrollBar">
       <div className="pt-2 pl-5	">
         <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
           <img className="w-8 mt-2" src="/crown-front-gradient.png" alt="home" />
@@ -102,6 +105,12 @@ function SideBar() {
           <LogoutIcon className="h-5 mt-2" />
           <p className="font-medium	mb-3  ">Log out</p>
         </button>
+      </div>
+
+      <div>
+        <figure className="absolute left-0 right-0 bottom-[72px] p-4">
+          <img src={song.album.images[0].url} alt="" className="rounded-xl" />
+        </figure>
       </div>
     </div>
   )

@@ -8,7 +8,6 @@ export default function Home() {
   return (
     <div className="relative flex-1">
       <div className="flex m-[5px]">
-        <div className="box-gradient flex items-center justify-center"></div>
         <div className="flex-1">
           <AlbumListHome />
         </div>
