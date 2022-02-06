@@ -1,7 +1,6 @@
 import { MusicNoteIcon } from "@heroicons/react/solid"
 import { useRecoilValue } from "recoil"
 import { recentlyPlayedTrackState } from "../atoms/songAtom"
-import RecentTrack from "./RecentlyTrack"
 import Song from "./Song"
 
 export default function RecentlyPlayed() {
