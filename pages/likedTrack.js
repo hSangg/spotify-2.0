@@ -4,7 +4,6 @@ import useSpotify from "../Hooks/useSpotify"
 import LikedTrackItem from "../components/LikedTrackItem"
 export default function LikedTrack() {
   const [likeList, setLikeList] = useRecoilState(likeSongListState)
-  const spotifyAPI = useSpotify()
 
   return (
     <>
