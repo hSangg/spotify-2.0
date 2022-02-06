@@ -19,3 +19,8 @@ export const likeSongListState = atom({
   key: "likeSongListState",
   default: [],
 })
+
+export const recentlyPlayedTrackState = atom({
+  key: "recentlyPlayedTrackState",
+  default: [],
+})

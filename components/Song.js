@@ -92,7 +92,7 @@ export default function Song({ order, song }) {
                 }
               />
             </button>
-            <button>{song.added_at.substring(0, 10)}</button>
+            <button>{song?.added_at?.substring(0, 10) || song?.played_at?.substring(0, 10)}</button>
           </div>
         </div>
       </div>

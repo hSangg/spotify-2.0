@@ -10,7 +10,7 @@ export default function AlbumListHome() {
 
   useEffect(() => {
     spotifyAPI.getUserPlaylists().then((data) => {
-      console.log("data: ", data)
+      
       setAlbumList(data.body.items)
     })
   }, [])
