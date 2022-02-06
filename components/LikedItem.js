@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil"
 import { currentTrackIdState, isPlayingState, playingTrackState } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
 
-export default function LikedTrackItem({ track }) {
+export default function LikedItem({ track }) {
   const spotifyAPI = useSpotify()
   const [hover, setHover] = useState(false)
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
