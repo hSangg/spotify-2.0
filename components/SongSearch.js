@@ -7,7 +7,7 @@ import useFormatTime from "../Hooks/useFormatTime"
 import { playingTrackState } from "../atoms/songAtom"
 
 export default function SongSearch({ song }) {
-  console.log('song in search: ', song);
+  console.log("song in search: ", song)
   const spotifyAPI = useSpotify()
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
   const [currentTrack, setCurrentTrack] = useRecoilState(playingTrackState)
@@ -34,10 +34,10 @@ export default function SongSearch({ song }) {
         className="grid cursor-pointer items-center grid-cols-2 pt-5 pb-5 hover:bg-gray-900 pl-2 pr-2"
       >
         <div className="flex gap-5">
-          <figure className="w-20 h-20">
+          <figure className="w-20 h-20 shrink-0">
             <img className="rounded-lg" src={song?.album?.images?.[0].url} />
           </figure>
-          <div className=" ">
+          <div>
             <h1 className="font-bold text-lg">{song.name}</h1>
             <div>
               {song.artists.map((artist, i) => {

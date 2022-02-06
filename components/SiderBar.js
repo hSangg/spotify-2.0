@@ -36,8 +36,12 @@ function SideBar() {
     URL.push("/search")
   }
 
+  const gotoLikedTrackPage = () => {
+    URL.push("/likedTrack")
+  }
+
   return (
-    <div className="relative transition-all min-w-[50px] h-screen mb-[150px] overflow-y-scroll md:min-w-[200px] scrollBar ">
+    <div className="relative transition-all min-w-[50px] h-screen  overflow-y-scroll md:min-w-[200px] scrollBar ">
       <div className="pt-2 pl-5	">
         <button
           onClick={gotoHomePage}
@@ -77,7 +81,10 @@ function SideBar() {
           <p className="font-medium mb-3 hidden md:block ">Your Episodes.</p>
         </button>
 
-        <button className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 ">
+        <button
+          onClick={gotoLikedTrackPage}
+          className="transition-all items-center flex space-x-2 space-y-3 opacity-50 hover:opacity-100 "
+        >
           <HeartIcon className="h-7 ml-1 mt-3 md:ml-0 md:h-5 md:mt-2 fill-blue-400" />
           <p className="font-mediummb-3  hidden md:block ">Liked song.</p>
         </button>

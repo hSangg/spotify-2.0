@@ -22,11 +22,13 @@ export default function AlbumItem({ album }) {
       onMouseLeave={() => setIsHover(false)}
     >
       <figure className="relative w-[200px] h-[200px]">
-        {isHover ? (
-          <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]	">
-            <PlayIcon onClick={handleIconClick} className="w-20 fill-green-600 " />
-          </div>
-        ) : undefined}
+        <div className="absolute left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%]	">
+          <PlayIcon
+            onClick={handleIconClick}
+            className={`w-20 fill-green-600 ${isHover ? "opacity-100" : "opacity-0"} `}
+          />
+        </div>
+
         <img src={album?.images?.[0]?.url} alt="" className="rounded-3xl" />
       </figure>
 

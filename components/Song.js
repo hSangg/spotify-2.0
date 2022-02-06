@@ -1,3 +1,5 @@
+import { HeartIcon } from "@heroicons/react/outline"
+import { useEffect } from "react"
 import { useRecoilState } from "recoil"
 import {
   currentTrackIdState,
@@ -6,8 +8,6 @@ import {
   playingTrackState,
 } from "../atoms/songAtom"
 import useSpotify from "../Hooks/useSpotify"
-import { HeartIcon } from "@heroicons/react/outline"
-import { useEffect } from "react"
 
 function msToHMS(duration) {
   let milliseconds = parseInt((duration % 1000) / 100)
@@ -20,7 +20,6 @@ function msToHMS(duration) {
 }
 
 export default function Song({ order, song }) {
-  console.log("song: ", song)
   const spotifyAPI = useSpotify()
 
   const [currentTrackId, setCurrentTrackId] = useRecoilState(currentTrackIdState)
@@ -28,7 +27,7 @@ export default function Song({ order, song }) {
   const [isPlaying, setIsPlaying] = useRecoilState(isPlayingState)
 
   const [likeList, setLikeList] = useRecoilState(likeSongListState)
-  console.log("likeList: ", likeList)
+  const likeIdTrackList = likeList?.map((track) => track?.id) || []
 
   useEffect(() => {
     spotifyAPI
@@ -38,11 +37,9 @@ export default function Song({ order, song }) {
       })
       .then(
         function (data) {
-          setLikeList(data?.body?.items?.map((item) => item.track.id))
+          setLikeList(data?.body?.items?.map((item) => item.track))
         },
-        function (err) {
-          console.log("Something went wrong!", err)
-        }
+        function (err) {}
       )
   }, [])
 
@@ -89,7 +86,9 @@ export default function Song({ order, song }) {
             <button className="w-6">
               <HeartIcon
                 className={
-                  likeList.includes(song?.track?.id) ? "fill-blue-500 text-blue-500 " : undefined
+                  likeIdTrackList.includes(song?.track?.id)
+                    ? "fill-blue-500 text-blue-500 "
+                    : undefined
                 }
               />
             </button>

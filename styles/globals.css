@@ -154,7 +154,7 @@ img {
 }
 
 .spin-animate {
-  animation: spin 10s linear infinite;
+  animation: spin 15s linear infinite;
 }
 
 .spin-animate::after {
@@ -175,4 +175,14 @@ img {
     visibility: visible;
     opacity: 1;
   }
+}
+
+.text-clamb {
+  width: 100%;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
 }
